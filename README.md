@@ -3,8 +3,6 @@
 
 ## Prerequisites
 
-First, fork the repository. Then, go into your favorite terminal.
-
     Ensure this node can reach out to target nodes at 5985 and 5986
     Your Credential to configure DB Cluster
     DB local admin credential in reference to respective servers
