@@ -1,0 +1,76 @@
+---
+- name: SQL Server Configuration
+  gather_facts: false
+  become_method: runas
+  become: yes
+  become_user: '{{ ansible_user }}'
+  vars_files:
+    - play_vars.yml
+    - cred.yml
+
+  hosts: sql_servers
+  tasks:
+    #- include_tasks: tasks/pre_checks.yml
+    - include_tasks: tasks/update_IP_static.yml
+    - include_tasks: tasks/install_failover_cluster.yml
+    - include_tasks: tasks/copy_nuget_dsc.yml
+    - include_tasks: tasks/create_sql_user.yml
+    - include_tasks: tasks/logon_service.yml
+    - include_tasks: tasks/install_dsc.yml
+    - name: Debug Result
+      debug:
+        var: result
+
+
+- name: SQL Server Configuration On Primary
+  gather_facts: false
+  become_method: runas
+  become: yes
+  become_user: '{{ ansible_user }}'
+  vars_files:
+    - play_vars.yml
+    - cred.yml
+
+  hosts: sql_servers[0]
+  tasks:
+    #- include_tasks: tasks/install_failover_cluster.yml
+    - include_tasks: tasks/create_cluster.yml
+    - include_tasks: tasks/cluster_quorum.yml
+    - include_tasks: tasks/add_nodes_cluster.yml
+    - name: Debug Result
+      debug:
+        var: result
+
+
+- name: Add Cluster IPs w.r.t. Non Primary nodes
+  gather_facts: false
+  become_method: runas
+  become: yes
+  become_user: '{{ ansible_user }}'
+  vars_files:
+    - play_vars.yml
+    - cred.yml
+
+  hosts: sql_servers[1-3]
+  tasks:
+    #- include_tasks: tasks/install_failover_cluster.yml
+    - include_tasks: tasks/add_cluster_ip.yml
+    - name: Debug Result
+      debug:
+        var: result
+
+- name: Check if Failover Cluster created
+  gather_facts: false
+  become_method: runas
+  become: yes
+  become_user: '{{ ansible_user }}'
+  vars_files:
+    - play_vars.yml
+    - cred.yml
+
+  hosts: sql_servers[0]
+  tasks:
+    - include_tasks: tasks/check_cluster.yml
+    - name: Debug Result
+      debug:
+        var: result
