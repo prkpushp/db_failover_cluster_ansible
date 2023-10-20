@@ -1,0 +1,2 @@
+Get-Cluster
+get-ClusterNode

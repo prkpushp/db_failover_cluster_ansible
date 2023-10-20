@@ -1,0 +1,10 @@
+node1: sql_servers[0]
+node2: sql_servers[1]
+node3: sql_servers[2]
+node4: sql_servers[3]
+#DO Not Delete
+ansible_connection: winrm
+ansible_winrm_transport: https
+ansible_port: 5986
+ansible_winrm_server_cert_validation: ignore
+ansible_winrm_transport: ntlm
