@@ -1,5 +1,5 @@
-<p> # db_failover_cluster_ansible </p> 
-Create Multi Node Failover Cluster in Windows Server with MS SQL Installed - Can create upto 5 node DB failover cluster
+<p> # **db_failover_cluster_ansible** </p> 
+<p> Create Multi Node Failover Cluster in Windows Server with MS SQL Installed - Can create upto 5 node DB failover cluster </p>
 
 Prerequisites:
 Ensure this node can reach out to target nodes at 5985 and 5986
