@@ -1,0 +1,13 @@
+---
+- name: Check SQL Cluster Failover Status
+  script: /home/ansible/win-playbooks/cluster-create/check_cluster.ps1
+  args:
+    executable: powershell.exe
+  become: yes
+  become_method: runas
+  register: script_result
+
+
+- name: Display Script Result - Cluster Failover Status
+  debug:
+    var: script_result

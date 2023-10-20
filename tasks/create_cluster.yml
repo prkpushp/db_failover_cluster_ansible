@@ -1,0 +1,8 @@
+- name: Create New Cluster
+  win_dsc:
+    resource_name: Cluster
+    Name: '{{cluster_name}}'
+    StaticIPAddress: '{{cluster_ip}}'
+    PsDscRunAsCredential_username: '{{ansible_user}}'
+    PsDscRunAsCredential_password: '{{ansible_password}}'
+  ignore_errors: true

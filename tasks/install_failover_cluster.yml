@@ -1,0 +1,8 @@
+---
+- name: Install Failover Clustering
+  win_feature:
+    name: Failover-Clustering
+    include_management_tools: yes
+    include_sub_features: yes
+    state: present
+  register: result

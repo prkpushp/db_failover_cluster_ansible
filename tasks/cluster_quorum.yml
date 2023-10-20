@@ -1,0 +1,8 @@
+---
+- name: Set Cluster Quorum
+  win_dsc:
+    resource_name: ClusterQuorum
+    IsSingleInstance: 'Yes'
+    Type: 'NodeMajority'
+  register: cluster_result
+  ignore_errors: true

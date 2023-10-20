@@ -1,0 +1,13 @@
+---
+- name: Adding Nodes to Cluster
+  script: /home/ansible/win-playbooks/cluster-create/add_node.ps1
+  args:
+    executable: powershell.exe
+  become: yes
+  become_method: runas
+  register: script_result
+
+
+- name: Display Script Result - Add nodes to Cluster
+  debug:
+    var: script_result
