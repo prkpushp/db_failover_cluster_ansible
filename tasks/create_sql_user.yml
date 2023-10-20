@@ -1,0 +1,8 @@
+---
+- name: Create sqladmin user
+  win_user:
+    name: '{{sqluser}}'
+    password: '{{sqlpassword}}'
+    state: present
+    password_never_expires: yes
+

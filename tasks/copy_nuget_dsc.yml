@@ -1,0 +1,13 @@
+---
+- name: Copy Nuget and DSC Module
+  win_copy:
+    src: /home/ansible/win-playbooks/cluster-create/nuget.1.3.3.zip
+    dest: C:\
+  become: yes
+  become_method: runas
+
+- name: Copy Nuget Failover Cluster DSC Module
+  win_copy:
+    src: /home/ansible/win-playbooks/cluster-create/failoverclusterdsc.2.1.1-preview0001.zip
+    dest: C:\
+  become: yes

@@ -1,0 +1,41 @@
+---
+- name: Extract Nuget package to C:\nuget
+  win_unzip:
+    src: 'C:\nuget.1.3.3.zip'
+    dest: 'C:\nuget.1.3.3'
+  become: yes
+
+- name: Extract failover Cluster DSC to C:\failoverclusterdsc
+  win_unzip:
+    src: 'C:\failoverclusterdsc.2.1.1-preview0001.zip'
+    dest: 'C:\failoverclusterdsc'
+  become: yes
+
+- name: Import DSC Module for FailOver Cluster and Nuget
+  script: /home/ansible/win-playbooks/cluster-create/installpkg.ps1
+  args:
+    executable: powershell.exe
+  become: yes
+  become_method: runas
+
+
+- name: Copy Nuget Binaries to Powershell Module
+  win_copy:
+    src: 'C:\nuget'
+    dest: 'C:\Program Files\WindowsPowerShell\Modules'
+    remote_src: yes
+  become: yes
+  become_method: runas
+
+- name: Copy FailOver Cluster Binaries to Powershell Module
+  win_copy:
+    src: 'C:\failoverclusterdsc'
+    dest: 'C:\Program Files\WindowsPowerShell\Modules'
+    remote_src: yes
+  become: yes
+  become_method: runas
+
+
+- name: Show Result
+  debug:
+    var: script_result.stdout

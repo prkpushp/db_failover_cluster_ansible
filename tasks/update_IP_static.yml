@@ -1,0 +1,26 @@
+---
+- name: Install Failover Clustering
+  win_feature:
+    name: Failover-Clustering
+    include_management_tools: yes
+    include_sub_features: yes
+    state: present
+  register: result
+[ansible@koss01-prd01-ans01-app-1 tasks]$ cat update_IP_static.yml
+---
+- name: Get Current DHCP IP Address
+  win_shell: Get-NetIPAddress | Where-Object { $_.AddressFamily -eq "IPv4" -and ($_.InterfaceAlias -like "Ethernet*" -or $_.InterfaceAlias -like "Ethernet 2*") } | Select-Object -ExpandProperty IPAddress
+  register: dhcp_ip
+
+- name: get Default Gateway
+  win_shell: Get-NetRoute | Where-Object { $_.DestinationPrefix -eq '0.0.0.0/0' } | Select-Object -ExpandProperty NextHop
+  register: default_gateway
+- debug:
+    var: dhcp_ip.stdout_lines[0]
+    var: default_gateway.stdout_lines[0]
+
+- name: Configure IP Address
+  win_shell: netsh interface ip set address "Ethernet" static {{dhcp_ip.stdout_lines[0]}} 255.255.255.240 {{default_gateway.stdout_lines[0]}}
+  async: 360
+  poll: 5
+  register: configure_ip_result

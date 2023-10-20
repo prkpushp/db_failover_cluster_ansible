@@ -1,0 +1,11 @@
+---
+- name: Add IP of cluster
+  win_dsc:
+    resource_name: ClusterIPAddress
+    IPAddress: '{{cluster_ip}}'
+    AddressMask: '255.255.255.240'
+    Ensure: Present
+    PsDscRunAsCredential_username: '{{ansible_user}}'
+    PsDscRunAsCredential_password: '{{ansible_password}}'
+  register: cluster_result
+  ignore_errors: true
