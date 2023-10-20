@@ -7,8 +7,8 @@ Your Credential to configure DB Cluster
 DB local admin credential in reference to respective servers
 Check the content of add_node.ps1 and add the node if needed.
 
-Setup your vault so that you don't end up your AD credentials exposed
-Do some pre-checks
+Setup your vault so that you don't end up your AD credentials exposed \n
+Do some pre-checks 
 Update the IP Address of DB Nodes from DHCP to static and make the subnet wider(255.255.255.248 to 255.255.255.240)
 Install Failover Cluster Role
 Copy Nuget and failoverclusterdsc file from ansible server to DB servers
