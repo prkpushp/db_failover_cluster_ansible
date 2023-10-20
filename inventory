@@ -1,7 +1,7 @@
 [sql_servers]
-win-db01.int.prd.mykronos.com cluster_ip=10.255.11.202
-win-db02.int.prd.mykronos.com cluster_ip=10.255.11.221
-win-db04.int.prd.mykronos.com cluster_ip=10.255.139.251
+win-db01.infotechstuffs.com cluster_ip=10.255.11.202
+win-db02.infotechstuffs.com cluster_ip=10.255.11.221
+win-db04.infotechstuffs.com cluster_ip=10.255.139.251
 
 [sql_servers:vars]
 cluster_name=win-dc001
